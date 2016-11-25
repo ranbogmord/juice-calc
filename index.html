@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Juice Calculator</title>
+</head>
+<body>
+    <h1>Juice Calculator</h1>
+    <div id="juice-app">
+        Name: <input type="text" v-model="name">
+        <div>
+            Batch size: <input type="text" v-model="batchSize"> ml
+        </div>
+        <div>
+            PG: <input type="text" v-model="pgPercent">% / VG: <input type="text" v-model="vgPercent">%
+        </div>
+        <div>
+            Nic vol: <input type="text" v-model="nic"> mg/ml.
+        </div>
+        <div>
+            Target nic vol: <input type="text" v-model="targetNic"> mg/ml
+        </div>
+
+        <div>
+            <b>Flavours</b>
+            <div>
+                <ul>
+                    <li v-for="f,i in flavoursRaw">
+                        Name: <input type="text" v-model="f.name"><br>
+                        Percentage: <input type="text" v-model="f.perc"><br>
+                        <a @click.prevent="flavoursRaw.splice(i, 1)" href="#!">remove</a>
+                    </li>
+                    <li><a @click.prevent="flavoursRaw.push({name: '', perc: 0})" href="#!">add flavour</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <table cellpadding="10" border="1">
+            <tr>
+                <th>Ingredient</th>
+                <th>ml</th>
+                <th>%</th>
+            </tr>
+            <tr>
+                <td>PG ({{ nic }}mg/ml)</td>
+                <td>{{ pgNicVol }}</td>
+                <td>{{ pgNicPerc }}</td>
+            </tr>
+            <tr>
+                <td>PG (0 mg/ml)</td>
+                <td>{{ pgZeroVol }}</td>
+                <td>{{ pgZeroPerc }}</td>
+            </tr>
+            <tr>
+                <td>VG (0 mg/ml)</td>
+                <td>{{ vgVol }}</td>
+                <td>{{ vgPerc }}</td>
+            </tr>
+            <tr v-for="f in flavours">
+                <td>{{ f.name }}</td>
+                <td>{{ f.vol }}</td>
+                <td>{{ f.perc }}</td>
+            </tr>
+        </table>
+    </div>
+    <script src="/public/bundle.js"></script>
+</body>
+</html>
